@@ -90,10 +90,19 @@ function verifyHandler(req, res) {
   // when present, otherwise fall back to the built-in iyed payload so the
   // license works even if the datastore was not uploaded.
   const builtin = 'eyJrZXkiOiJJWUVELTEyMzQiLCJuYW1lIjoiaXllZCIsInZlcnNpb24iOiI3LjAiLCJwYWNrYWdlX2lkIjoiN2U2YjZlZTJkZTQ5OTg0MGZmOTkyNTdkNjI0NDBjMmRlNjA0OGY2NDc0YmNiNmM3NjQ5M2ViOWMxY2Q5MmY2YSIsImlzc3VlZF9hdCI6IjIwMjYtMTEtMjVUMjA6NTk6MTRaIiwiZXhwaXJlc19hdCI6IjIwMzYtMTEtMjJUMjA6NTk6MTRaIiwiZGF5c19sZWZ0IjozNjUwLCJzZWNvbmRzX2xlZnQiOjMxNTM2MDAwMCwiaHdpZCI6IiIsImRldmljZV9tb2RlbCI6IiIsInN0YXR1cyI6InN1Y2Nlc3MifQ.33VxjRd2PwvJC56mkCxIGt75lqhjm1IYTFRgB59GR2RUf2chS6ahQCs3qMOyqZGMeIxaqEHlrbKJyKtd1qJ2471fmQsjAbgevIzQLxwNa6y+rC8Iki/cIlqESdAFXuP2wDLTJeCYhQZiJr0eCYiVQ9UBeUWVoM/QkIxId6BAtuX44RTu9XjqTMgiTGGcOP4WeOAZuhJe3KItgk4Ip2wgD5tCTmsEClU1dc7W79xHNaWQLFmmvT5acuaMk1LCXyaPQj3NR7dvABreD1MpZsg+D8fJXm0kKdkvquGTfmTOhY1lk//NJ5Ne9hCYkbqgXVga5Zo/XN5MUbOOWGyoXXeg+A==';
-  let issued = {};
-  try { issued = store.getLicenses() || {}; } catch (e) { issued = {}; }
-  if (issued[token] && issued[token].signedPayload) token = issued[token].signedPayload;
-  else if (token === 'IYED-1234') token = builtin;
+  // Resolve any raw key by reading its claim from a signed payload we can
+  // verify with our public key. Built-in iyed payload is always available.
+  if (token.indexOf('.') === -1) {
+    if (token === 'IYED-1234') token = builtin;
+    else {
+      let issued = {};
+      try { issued = store.getLicenses() || {}; } catch (e) { issued = {}; }
+      const rec = issued[token];
+      if (rec && rec.signedPayload) token = rec.signedPayload;
+      else return res.status(200).json(license.responseFromClaims(
+        { name: config.licenseName, version: config.appVersion, expires_at: new Date(0).toISOString() }, false));
+    }
+  }
 
   const result = license.verify(token, k.publicKeyPem);
   if (!result.valid && !result.claims) {
