@@ -79,10 +79,7 @@ function verifyHandler(req, res) {
   const auth = req.headers['authorization'] || '';
   const bearer = auth.startsWith('Bearer ') ? auth.slice(7).trim() : '';
   const token = body.token || body.license || body.payload || body.signed_payload ||
-                body.data || bearer ||
-                (req.headers['x-package-token'] && body.key
-                  ? store.getLicenses()[body.key] && store.getLicenses()[body.key].signedPayload
-                  : null);
+                body.data || bearer || body.key || null;
 
   if (!token) {
     return res.status(200).json(license.responseFromClaims(
