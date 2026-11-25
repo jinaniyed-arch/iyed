@@ -71,11 +71,7 @@ app.get('/api/public/key', (req, res) => {
 // shapes so it can be wired into different clients without changing the app.
 // /api/verify is a short alias used by the patched Android DEX (fixed-length
 // string patch): same handler, same response shape.
-app.post(['/api/verify', '/api/verify/'], (req, res, next) => {
-  req.url = config.verifyPath;
-  next();
-});
-app.post(config.verifyPath, (req, res) => {
+function verifyHandler(req, res) {
   let k;
   try { k = keys(); } catch (e) { return res.status(500).json({ error: e.message }); }
 
@@ -106,7 +102,10 @@ app.post(config.verifyPath, (req, res) => {
     name: config.licenseName, version: config.appVersion, expires_at: new Date(0).toISOString(),
   };
   res.status(200).json(license.responseFromClaims(claims, result.valid));
-});
+}
+app.post(config.verifyPath, verifyHandler);
+app.post('/api/verify', verifyHandler);
+app.post('/api/verify/', verifyHandler);
 
 // Admin issuance. Protect with --admin-token in production via middleware.
 app.post('/api/issue', (req, res) => {
