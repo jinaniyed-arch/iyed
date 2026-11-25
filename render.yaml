@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: iyed-license-auth
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: LICENSE_NAME
+        value: iyed
+      - key: DEFAULT_DAYS
+        value: 3650

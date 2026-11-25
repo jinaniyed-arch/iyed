@@ -90,6 +90,7 @@ function responseFromClaims(claims, valid) {
   const base = {
     status: valid ? 'success' : 'error',
     success: !!valid,
+    valid: !!valid,
     code: valid ? 200 : 403,
     message: valid ? config.responseMessage : 'invalid or expired license',
     name: claims.name,
@@ -112,6 +113,7 @@ function responseFromClaims(claims, valid) {
   base.data = {
     status: base.status,
     success: !!valid,
+    valid: !!valid,
     name: claims.name,
     version: claims.version,
     days_left: daysLeft,

@@ -1,0 +1,21 @@
+{
+  "IYED-1234": {
+    "key": "IYED-1234",
+    "claims": {
+      "key": "IYED-1234",
+      "name": "iyed",
+      "version": "7.0",
+      "package_id": "7e6b6ee2de499840ff99257d62440c2de6048f6474bcb6c76493eb9c1cd92f6a",
+      "issued_at": "2026-11-25T20:59:14Z",
+      "expires_at": "2036-11-22T20:59:14Z",
+      "days_left": 3650,
+      "seconds_left": 315360000,
+      "hwid": "",
+      "device_model": "",
+      "status": "success"
+    },
+    "signedPayload": "eyJrZXkiOiJJWUVELTEyMzQiLCJuYW1lIjoiaXllZCIsInZlcnNpb24iOiI3LjAiLCJwYWNrYWdlX2lkIjoiN2U2YjZlZTJkZTQ5OTg0MGZmOTkyNTdkNjI0NDBjMmRlNjA0OGY2NDc0YmNiNmM3NjQ5M2ViOWMxY2Q5MmY2YSIsImlzc3VlZF9hdCI6IjIwMjYtMTEtMjVUMjA6NTk6MTRaIiwiZXhwaXJlc19hdCI6IjIwMzYtMTEtMjJUMjA6NTk6MTRaIiwiZGF5c19sZWZ0IjozNjUwLCJzZWNvbmRzX2xlZnQiOjMxNTM2MDAwMCwiaHdpZCI6IiIsImRldmljZV9tb2RlbCI6IiIsInN0YXR1cyI6InN1Y2Nlc3MifQ.33VxjRd2PwvJC56mkCxIGt75lqhjm1IYTFRgB59GR2RUf2chS6ahQCs3qMOyqZGMeIxaqEHlrbKJyKtd1qJ2471fmQsjAbgevIzQLxwNa6y+rC8Iki/cIlqESdAFXuP2wDLTJeCYhQZiJr0eCYiVQ9UBeUWVoM/QkIxId6BAtuX44RTu9XjqTMgiTGGcOP4WeOAZuhJe3KItgk4Ip2wgD5tCTmsEClU1dc7W79xHNaWQLFmmvT5acuaMk1LCXyaPQj3NR7dvABreD1MpZsg+D8fJXm0kKdkvquGTfmTOhY1lk//NJ5Ne9hCYkbqgXVga5Zo/XN5MUbOOWGyoXXeg+A==",
+    "issuedAt": "2026-11-25T20:59:14Z",
+    "expiresAt": "2036-11-22T20:59:14Z"
+  }
+}
